@@ -40,7 +40,7 @@ public class JDBCConnect {
             }
         }
     }
-    public JDBCConnect(ServletContext application) { //3  2번과 3번은 같다
+    public JDBCConnect(ServletContext application) { //3  2번과 3번은 같다 web.xml에 기입해두는것
         {
             try {
                 String driver = application.getInitParameter("OracleDriver");

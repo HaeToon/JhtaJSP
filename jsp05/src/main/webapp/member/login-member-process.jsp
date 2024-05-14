@@ -15,7 +15,7 @@
     String userID = request.getParameter("userID");
     String userPW = request.getParameter("userPW");
     String saveID = request.getParameter("saveID");
-//    System.out.println(savdID);
+    System.out.println(saveID);
 
     JDBCConnectionPool jdbcConnectionPool = new JDBCConnectionPool();
 
@@ -40,9 +40,9 @@
         session.setAttribute("userID",userId);
         session.setAttribute("userName",userName);
 //        session.setAttribute("userBirth",userBirth);
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("../index/index.jsp");
     }else {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../member/login.jsp");
     }
 %>
 <html>

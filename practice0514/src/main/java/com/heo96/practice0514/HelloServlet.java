@@ -1,7 +1,6 @@
-package com.heo96.jsp05;
+package com.heo96.practice0514;
 
 import java.io.*;
-
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 

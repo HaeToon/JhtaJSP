@@ -18,7 +18,11 @@
     String userPW=request.getParameter("userPW");
     String userName=request.getParameter("userName");
     String userBirth=request.getParameter("userBirth"); //String 던져도 묵시적 형변환으로 인해 알아서 들어감.
-    System.out.println(userBirth);
+    String userEmail=request.getParameter("userEmail");
+    String postCode=request.getParameter("postCode");
+    String adress = request.getParameter("adress");
+    String detailAdress=request.getParameter("detailAdress");
+    System.out.println(detailAdress);
 
 
 
@@ -38,17 +42,21 @@
 
     //sqlinjection 주입
     
-        String sql = "insert into member values(member_seq.nextval,?,?,?,?)";
+        String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?,?,?)";
         PreparedStatement pstmt = jdbcConnectionPool.conn.prepareStatement(sql);
         pstmt.setString(1,userID); // ?의 값 정해주는것 번호는 ?기준으로만 잡음.
         pstmt.setString(2,userPW);
         pstmt.setString(3,userName);
         pstmt.setString(4,userBirth);
+        pstmt.setString(5,userEmail);
+        pstmt.setString(6,postCode);
+        pstmt.setString(7,adress);
+        pstmt.setString(8,detailAdress);
         int result = pstmt.executeUpdate(); //0또는 1리턴
         System.out.println(result);
         if(result>0){
             //일반 경고창 띄우는 경우 1 , 경고창 띄우고 페이지 바뀌는경우 2, 경고창 띄우고 뒤로가기 3
-            ScriptWritter.alertAndNext(response,"회원가입 되었습니다.","index.jsp");
+            ScriptWritter.alertAndNext(response,"회원가입 되었습니다.","../index/index.jsp");
         }else {
             ScriptWritter.alertAndBack(response,"회원가입에 실패했습니다 다시 해주시기 바랍니다.");
         }
