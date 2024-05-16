@@ -28,4 +28,7 @@
     out.println(returnJson);
 //       response.setContentType("text/htlm; charset=utf-8"); //default
 //       out.println("{\"count\":\""+result+"\"}"); //json 형태 "{count:"+result+"}"
+    rs.close();
+    pstmt.close();
+    jdbcConnectionPool.close();
 %>

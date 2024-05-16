@@ -26,10 +26,11 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="../index/index.jsp" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a href="notice.jsp" class="nav-link px-2">Notice</a></li>
-                <li><a href="board.jsp" class="nav-link px-2">Board</a></li>
-                <li><a href="faq.jsp" class="nav-link px-2">FAQs</a></li>
-                <li><a href="about.jsp" class="nav-link px-2">About</a></li>
+                <%if(loggedID!=null) {%>
+                <li><a href="../board/list.jsp" class="nav-link px-2">List</a></li>
+                <li><a href="../board/list.jsp" class="nav-link px-2">Board</a></li>
+                <%}%>
+                <li><a href="../board/faq.jsp" class="nav-link px-2">FAQs</a></li>
             </ul>
 
 

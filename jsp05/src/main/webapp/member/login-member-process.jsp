@@ -44,12 +44,8 @@
     }else {
         response.sendRedirect("../member/login.jsp");
     }
+    rs.close();
+    pstmt.close();
+    jdbcConnectionPool.close();
 %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>

@@ -32,4 +32,6 @@
         CookieManager.deleteCookie(response,"loggedID");
         ScriptWritter.alertAndNext(response,"회원탈퇴 되었습니다.","../index/index.jsp");
     }
+    pstmt.close();
+    jdbcConnectionPool.close();
 %>

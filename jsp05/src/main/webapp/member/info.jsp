@@ -36,6 +36,9 @@
         adress=rs.getString("adress");
         detail=rs.getString("detailAdress");
     }
+    rs.close();
+    pstmt.close();
+    jdbcConnectionPool.close();
 %>
 <div class="container">
 <table class="table table-striped">

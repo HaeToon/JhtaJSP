@@ -60,15 +60,6 @@
         }else {
             ScriptWritter.alertAndBack(response,"회원가입에 실패했습니다 다시 해주시기 바랍니다.");
         }
-
-
-//    jdbcConnectionPool.close();
+    pstmt.close();
+    jdbcConnectionPool.close();
 %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>

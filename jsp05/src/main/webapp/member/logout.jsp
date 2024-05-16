@@ -10,11 +10,3 @@
     session.invalidate(); //세션값을 지움
     out.println("<script>alert(\"로그아웃 되었습니다.\");location.href=\"login.jsp\"</script>");
 %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
