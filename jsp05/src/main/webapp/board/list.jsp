@@ -17,14 +17,20 @@
 %>
 <div class="container">
     <h2 class="mt-5 mb-5">LIST</h2>
+    <div class="text-end">
+        <form action="user-content-list-view.jsp" method="post">
+            <input type="text" name="userID">
+            <button id="btn-search-content">검색</button>
+        </form>
+    </div>
     <form action="content-view.jsp" method="get" id="member-list-form">
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>No</th>
                 <th>Subject</th>
+                <th>viewSubject</th>
                 <th>Name</th>
-                <th>UserID</th>
                 <th>Hit</th>
                 <th>Date</th>
             </tr>
@@ -34,8 +40,8 @@
             <tr>
                 <td><%=rs.getInt("no")%></td>
                 <td><a href="content-view.jsp?no=<%=rs.getInt("no")%>"><%=rs.getString("subject")%><a/></td>
+                <td><a href="view.jsp?no=<%=rs.getInt("no")%>"><%=rs.getString("subject")%>view<a/></td>
                 <td><%=rs.getString("username")%></td>
-                <td><a href="user-content-list-view.jsp?userID=<%=rs.getString("userID")%>"><%=rs.getString("userID")%><a/></td>
                 <td><%=rs.getString("hit")%></td>
                 <td><%=rs.getString("regdate")%></td>
             </tr>
@@ -50,4 +56,4 @@
     <div class="mt-5 mb-5"><a href="../board/write.jsp" class="btn btn-primary">글쓰기</a></div>
 </div>
 <%@include file="../include/footer.jsp"%>
-jdbcConnectionPool.close();
+

@@ -14,7 +14,7 @@
 <%--            <label for="userID" class="form-label">User ID</label>--%>
 <%--            <input type="text" class="form-control" id="userID" placeholder="User ID" name="userID">--%>
 <%--        </div>--%>
-        <input type="hidden"name="userID" value="${userID}" name="writeUserId">
+        <input type="hidden" value="${userID}" name="writeUserId">
             <div class="mb-3">
                 <label for="userName" class="form-label">Name</label>
                 <input type="text" class="form-control" id="userName" placeholder="User Name" name="writeUserName">

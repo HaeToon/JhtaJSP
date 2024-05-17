@@ -27,3 +27,10 @@
     left:50%;
 
 }
+.content{
+    white-space: pre-line;
+}
+.addr {
+    display:block; overflow:hidden; width:100%; height:2.7rem; padding:0.6rem;
+    font-size:1.2rem; color:#000; border-radius:0.2rem; border:1px solid #ccc; resize:none;
+}

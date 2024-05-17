@@ -27,7 +27,6 @@
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="../index/index.jsp" class="nav-link px-2 link-secondary">Home</a></li>
                 <%if(loggedID!=null) {%>
-                <li><a href="../board/list.jsp" class="nav-link px-2">List</a></li>
                 <li><a href="../board/list.jsp" class="nav-link px-2">Board</a></li>
                 <%}%>
                 <li><a href="../board/faq.jsp" class="nav-link px-2">FAQs</a></li>
@@ -38,16 +37,15 @@
             <div class="col-md-3 text-end">
                 <a href="../member/info.jsp" class="btn btn-outline-primary me-2"><%=loggedName%></a>
                 <%--                <a href="../member/insert-member.jsp" class="btn btn-primary">Sign-up</a>--%>
-                <a href="../member/logout.jsp" class="btn btn-primary">LogOut</a>
+                <a href="../member/logout.jsp" class="btn btn-primary">로그아웃</a>
             </div>
            <% } else { %>
             <div class="col-md-3 text-end">
-                <a href="../member/login.jsp" class="btn btn-outline-primary me-2">Login</a>
-                <a href="../member/insert-member.jsp" class="btn btn-primary">Sign-up</a>
+                <a href="../member/login.jsp" class="btn btn-outline-primary me-2">로그인</a>
+                <a href="../member/insert-member.jsp" class="btn btn-primary">회원가입</a>
                 <%--                <a href="../member/logout.jsp" class="btn btn-primary">LogOut</a>--%>
             </div>
           <%  } %>
-
         </header>
     </div>
 </head>
