@@ -11,8 +11,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    //dao (database access object) connect 묶기
-    // dto(database transfer object) db받는부분 묶기
+
     JDBCConnectionPool jdbcConnectionPool = new JDBCConnectionPool();
     try { //commit이 되었을때
     String sql = "delete from member where no = ?";

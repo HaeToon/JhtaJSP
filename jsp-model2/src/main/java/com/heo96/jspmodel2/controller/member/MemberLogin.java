@@ -9,12 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/member/info")
-public class Info extends HttpServlet {
+@WebServlet("/member/login")
+public class MemberLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        super.doGet(req, resp);
-        RequestDispatcher dispatcher=request.getRequestDispatcher("/WEB-INF/member/info-member.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/member/login-model2.jsp");
         dispatcher.forward(request,response);
     }
 }

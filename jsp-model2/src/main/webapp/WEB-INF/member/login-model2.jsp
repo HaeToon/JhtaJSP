@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="../include/header.jsp"%>
 <main class="form-signin w-100 m-auto">
-    <form action="/member/login-process" method="post">
+    <form action="/member/login-member-process" method="post">
 <%--        <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">--%>
         <h1 class="h3 mb-3 fw-normal">로그인</h1>
 

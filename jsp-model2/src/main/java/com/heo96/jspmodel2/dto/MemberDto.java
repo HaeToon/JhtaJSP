@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder  //process에서 간단하게 쓸수있게됨.
 public class MemberDto {
     private int no;
     private String userID;

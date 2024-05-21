@@ -61,7 +61,7 @@
     </form>
 </div>
 <script>
-    let isIdChecked = true;
+    let isIdChecked = false;
     $("#userPW02").on("keyup", function (e) {
         // console.log("키를 눌렀다 뗏습니다.")
         if ($("#userPW02").val() === $("#userPW").val()) {
@@ -117,7 +117,7 @@
     //ajax - jquery axios fetch
     $("#btn-duplicate").on("click", function () {
         $.ajax({
-            url: "id-check-process.jsp",
+            url: "../member/id-check-process",
             data: {
                 userID: $("#userID").val()
             },
