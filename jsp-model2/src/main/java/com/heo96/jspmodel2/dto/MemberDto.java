@@ -19,4 +19,5 @@ public class MemberDto {
     private String postcode;
     private String adress;
     private String detailAdress;
+    private String grade;
 }

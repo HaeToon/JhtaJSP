@@ -20,13 +20,13 @@ public class MemberLoginProcess extends HttpServlet {
         String userID=request.getParameter("userID");
         String userPW=request.getParameter("userPW");
         MemberDao loginMemberDao = new MemberDao();
-        MemberDto logingMemberDto = loginMemberDao.loginMember(userID,userPW);
+        MemberDto loginMemberDto = loginMemberDao.loginMember(userID,userPW);
 
-        if(logingMemberDto!=null){
+        if(loginMemberDto!=null){
             HttpSession session = request.getSession();
 //            session.setAttribute("loggedID",logingMemberDto.getUserID());
 //            session.setAttribute("loggedID",logingMemberDto.getUserPW());
-            session.setAttribute("sessionMemberDto",logingMemberDto);
+            session.setAttribute("sessionMemberDto",loginMemberDto);
             ScriptWritter.alertAndNext(response,"로그인 성공","../index/index");
         }else {
             ScriptWritter.alertAndBack(response,"로그인 실패");

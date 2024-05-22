@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -40,16 +41,22 @@ public class MemberInsertProcess extends HttpServlet {
         insertMemberDto.setDetailAdress(detailAdress);
         */
 
+//        BCrypt 비밀번호 암호화
+        String userPW = request.getParameter("userPW");
+        String salt=BCrypt.gensalt();
+        userPW=BCrypt.hashpw(userPW,salt);
+
         //builder 패턴 이용시 위 보다 더 간단하게 작성가능.
         MemberDto insertMemberDto = MemberDto.builder()
                 .userID(request.getParameter("userID"))
-                .userPW(request.getParameter("userPW"))
+                .userPW(userPW)
                 .userName(request.getParameter("userName"))
                 .userBirth(request.getParameter("userBirth"))
                 .email(request.getParameter("userEmail"))
                 .postcode(request.getParameter("postcode"))
                 .adress(request.getParameter("adress"))
                 .detailAdress(request.getParameter("detailAdress"))
+                .grade("member")
                 .build();
 
         MemberDao memberDao = new MemberDao();

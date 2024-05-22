@@ -8,5 +8,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     session.invalidate(); //세션값을 지움
-    out.println("<script>alert(\"로그아웃 되었습니다.\");location.href=\"login.jsp\"</script>");
+    out.println("<script>alert(\"로그아웃 되었습니다.\");location.href=\"../member/login\"</script>");
 %>

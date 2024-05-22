@@ -31,7 +31,7 @@
             <c:forEach var="boardList" items="${contentListDto}" begin="0" end="9" varStatus="loop">
                 <tr>
                     <td>${boardList.no}</td>
-                    <td><a href="">${boardList.subject}</a></td>
+                    <td><a href="/board/content-view?no=${boardList.no}">${boardList.subject}</a></td>
                     <td><a href="">${boardList.subject}view</a></td>
                     <td>${boardList.userName}</td>
                     <td>${boardList.hit}</td>

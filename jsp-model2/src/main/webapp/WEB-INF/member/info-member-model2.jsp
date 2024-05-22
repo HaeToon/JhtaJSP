@@ -5,6 +5,7 @@
     <h2 class="mt-5 mb-5">회원정보</h2>
 </div>
 <div class="container">
+    <form action="../member/change-password" method="post">
     <table class="table table-striped">
         <tbody>
         <tr>
@@ -13,7 +14,8 @@
         </tr>
         <tr>
             <th scope="row">ID</th>
-            <td>${infoMemberDto.userID}</td>
+            <td >${infoMemberDto.userID}</td>
+            <input type="hidden" name="userID" value="${infoMemberDto.userID}">
         </tr>
         <tr>
             <th scope="row">Name</th>
@@ -41,5 +43,7 @@
         </tr>
         </tbody>
     </table>
+        <button class="btn btn-outline-primary">비밀번호 변경</button>
+    </form>
 </div>
 <%@ include file="../include/footer.jsp"%>

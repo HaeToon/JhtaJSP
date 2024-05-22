@@ -2,6 +2,7 @@ package com.heo96.jspmodel2.dao;
 
 import com.heo96.jspmodel2.connect.JDBCConnectionPool;
 import com.heo96.jspmodel2.dto.MemberDto;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ public class MemberDao extends JDBCConnectionPool {
     //dto(database transfer object) db받는부분 묶기
     public int insertMember(MemberDto memberDto) throws SQLException {
         int result = 0;
-        String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?,?,?)";
+        String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?,?,?,?)";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberDto.getUserID());
@@ -31,6 +32,7 @@ public class MemberDao extends JDBCConnectionPool {
             pstmt.setString(6, memberDto.getPostcode());
             pstmt.setString(7, memberDto.getAdress());
             pstmt.setString(8, memberDto.getDetailAdress());
+            pstmt.setString(9, "member");
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -60,21 +62,28 @@ public class MemberDao extends JDBCConnectionPool {
 
     public MemberDto loginMember(String userID, String userPW) {
         MemberDto loginMemberDto = null;
-        String sql = "select * from member where userid=? and userpw=?";
+        String sql = "select * from member where userid=?";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userID);
-            pstmt.setString(2, userPW);
             rs = pstmt.executeQuery();
-            if (rs.next()) {
-                loginMemberDto = new MemberDto();
-                loginMemberDto.setUserID(rs.getString("userid"));
-                loginMemberDto.setUserName(rs.getString("username"));
+            if (rs.next()) { // sql 구문으로 member table의 userid값을 가져온후
+                String decodePW = rs.getString("userpw");
+//                System.out.println(decodePW+"===="+userPW);
+                if (BCrypt.checkpw(userPW, decodePW)) { //암호화된decodePW와 입력값userPW를 비교해서 참이면 값리턴
+                    loginMemberDto = new MemberDto();
+                    loginMemberDto.setUserID(rs.getString("userid"));
+                    loginMemberDto.setUserName(rs.getString("username"));
+                    loginMemberDto.setUserPW(rs.getString("userpw"));
+                    System.out.println("로그인 성공");
+                } else {
+                    System.out.println("로그인 실패");
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-           close();
+            close();
         }
         return loginMemberDto;
     }
@@ -102,7 +111,7 @@ public class MemberDao extends JDBCConnectionPool {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-           close();
+            close();
 
         }
         return infoMemberDto;
@@ -137,17 +146,36 @@ public class MemberDao extends JDBCConnectionPool {
         }
         return memberDtoList;
     }
-    public int deleteMember(String userID){
-        int result=0;
-        String sql="delete from member where userid=?";
+
+    public int deleteMember(String userID) {
+        int result = 0;
+        String sql = "delete from member where userid=?";
         try {
-            pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,userID);
-           result = pstmt.executeUpdate();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userID);
+            result = pstmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally{
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public int updatePassword(String userID, String changedPW) {
+        int result = 0;
+        String salt=BCrypt.gensalt();
+        String encodedPW = BCrypt.hashpw(changedPW,salt);
+        String sql = "update member set USERPW = ? where userid=?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, encodedPW);
+            pstmt.setString(2, userID);
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally{
             close();
         }
         return result;

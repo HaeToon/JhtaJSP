@@ -33,4 +33,26 @@ public class BoardDao extends JDBCConnectionPool {
         }
         return boardContentList;
     }
+    public BoardDto boardContentView(int no){
+        BoardDto boardContentViewDto=null;
+        String sql = "select * from board where no=?";
+        try {
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setInt(1,no);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                boardContentViewDto= BoardDto.builder()
+                        .no(rs.getInt("no"))
+                        .userName(rs.getString("username"))
+                        .subject(rs.getString("subject"))
+                        .content(rs.getString("content"))
+                        .regdate(rs.getString("regdate"))
+                        .hit(rs.getInt("hit"))
+                        .build();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return boardContentViewDto;
+    }
 }
