@@ -3,7 +3,7 @@
 <div class="container">
     <h2 class="mt-5 mb-5">회원가입</h2>
 
-    <form action="../member/insert-process" method="post">
+    <form action="../member/insert-process" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="userID" class="form-label">User ID</label>
             <input type="text" class="form-control" id="userID" placeholder="User ID" name="userID">
@@ -53,23 +53,40 @@
                 <input type="text" class="form-control" id="detailAdress" placeholder="Datail Adress"
                        name="detailAdress">
             </div>
+            <div class="mb-3">
+                <label for="profile" class="form-label">프로필 사진</label>
+                <input class="form-control" type="file" id="profile" name="profile" accept="image/jpg,image/gif,image/png">
+            </div>
+            <div class="mb-3">
+                <div id="preview">
+                    미리보기 이미지 들어가는곳
+                </div>
+            </div>
             <div>
                 <button class="btn btn-primary" id="btn-sign">Sign up</button>
                 <button type="reset" class="btn btn-outline-primary ">Reset</button>
             </div>
         </div>
     </form>
+<%--</div>
+<div class="a" style="width:300px; height: 300px; border:1px solid #000">a
+    <div class="b" style="width:200px; height: 200px; border:1px solid #000">b
+       <div class="c" style="width:100px; height: 100px; border:1px solid #000">c</div>
+    </div>--%>
 </div>
 <script>
     let isIdChecked = false;
+    let isPasswordCorrect = false;
     $("#userPW02").on("keyup", function (e) {
         // console.log("키를 눌렀다 뗏습니다.")
         if ($("#userPW02").val() === $("#userPW").val()) {
             $(".invalid-feedback").text("비밀번호가 일치합니다.")
             $(".invalid-feedback").show()
+            isPasswordCorrect=true;
         } else {
             $(".invalid-feedback").text("비밀번호가 불일치합니다.")
             $(".invalid-feedback").hide()
+            isPasswordCorrect=false;
         }
     })
     $("#btn-sign").on("click", function () {
@@ -112,6 +129,10 @@
             alert("아이디 중복확인 바랍니다.")
             $("#userID").focus();
             return false;
+        }
+        if(!isPasswordCorrect){
+            alert("비밀번호 확인 바랍니다.")
+            $("#userPW02").focus()
         }
     });
     //ajax - jquery axios fetch
@@ -175,7 +196,6 @@
         return false; //새로고침방지
     });
     $("#btn-postcode").on("click", makePostCode);
-
     function makePostCode() {
         new daum.Postcode({
             oncomplete: function (data) {
@@ -223,5 +243,37 @@
             }
         }).open();
     }
+    $("#profile").on("change",function (e){
+        // console.log(e.currentTarget.files[0])
+        const file=e.currentTarget.files[0];
+        if(!file){
+            $("#preview").html("")
+            return;
+        }
+        const extension = file.name.substring(file.name.lastIndexOf(".")+1)
+        console.log(extension)
+
+        if (!(extension==="png" || extension==="jpg" || extension==="gif")){
+            alert("이미지 파일만 업로드 가능합니다.")
+            $(this).val("")
+            $(this).focus()
+            return false;
+        }else {
+           const profileReader = new FileReader()
+           profileReader.addEventListener("load",function (e){
+               console.log(e)
+               const img = e.currentTarget.result;
+               $("#preview").html(`<img src = "\${img}">`)
+           })
+            profileReader.readAsDataURL(file);
+        }
+    })
+    /*
+    $(".a").on("click",function (e){
+        console.log(e.currentTarget) //이벤트를 받는 객체의 상위 객체를 리턴
+        console.log(e.target) //이벤트를 받는 객체를 리턴
+    })
+    //만약에 새로 생성되는 item에는 이벤트못검. 이럴경우 최상위에 건다음 타겟명으로 이벤트를 작성함
+     */
 </script>
 <%@include file="../include/footer.jsp" %>

@@ -9,6 +9,12 @@
     <table class="table table-striped">
         <tbody>
         <tr>
+            <th scope="row">프로필</th>
+            <td>
+                <img src="${request.contextPath}/upload/${infoMemberDto.renameProfile}" class="profile">
+            </td>
+        </tr>
+        <tr>
             <th scope="row">no</th>
             <td>${infoMemberDto.no}</td>
         </tr>

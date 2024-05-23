@@ -21,7 +21,7 @@ public class MemberDao extends JDBCConnectionPool {
     //dto(database transfer object) db받는부분 묶기
     public int insertMember(MemberDto memberDto) throws SQLException {
         int result = 0;
-        String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberDto.getUserID());
@@ -33,6 +33,8 @@ public class MemberDao extends JDBCConnectionPool {
             pstmt.setString(7, memberDto.getAdress());
             pstmt.setString(8, memberDto.getDetailAdress());
             pstmt.setString(9, "member");
+            pstmt.setString(10, memberDto.getOriginalProfile());
+            pstmt.setString(11, memberDto.getRenameProfile());
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -75,6 +77,7 @@ public class MemberDao extends JDBCConnectionPool {
                     loginMemberDto.setUserID(rs.getString("userid"));
                     loginMemberDto.setUserName(rs.getString("username"));
                     loginMemberDto.setUserPW(rs.getString("userpw"));
+                    loginMemberDto.setRenameProfile(rs.getString("renameProfile"));
                     System.out.println("로그인 성공");
                 } else {
                     System.out.println("로그인 실패");
@@ -106,6 +109,7 @@ public class MemberDao extends JDBCConnectionPool {
                         .postcode(rs.getString("postcode"))
                         .adress(rs.getString("adress"))
                         .detailAdress(rs.getString("detailadress"))
+                        .renameProfile(rs.getString("renameprofile"))
                         .build();
             }
         } catch (SQLException e) {
@@ -180,5 +184,21 @@ public class MemberDao extends JDBCConnectionPool {
         }
         return result;
     }
-
+    public int changePassword(String userID, String changedPW) {
+        int result = 0;
+            String salt = BCrypt.gensalt();
+            String encodedPW = BCrypt.hashpw(changedPW, salt);
+            String sql = "update member set USERPW = ? where userid=? ";
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, encodedPW);
+                pstmt.setString(2, userID);
+                result = pstmt.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                close();
+            }
+        return result;
+    }
 }

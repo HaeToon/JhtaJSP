@@ -6,11 +6,11 @@
 <html>
 <head>
     <title>JSP - Hello World</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/sign-in.css" rel="stylesheet">
-    <link href="../css/common.css" rel="stylesheet">
-    <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="../js/jquery-3.7.1.min.js"></script>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/sign-in.css" rel="stylesheet">
+    <link href="../../css/common.css" rel="stylesheet">
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/jquery-3.7.1.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <div class="container">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
