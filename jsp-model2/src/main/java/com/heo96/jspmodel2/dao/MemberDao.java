@@ -21,7 +21,7 @@ public class MemberDao extends JDBCConnectionPool {
     //dto(database transfer object) db받는부분 묶기
     public int insertMember(MemberDto memberDto) throws SQLException {
         int result = 0;
-        String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?,?,?,?,sysdate,?,?)";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberDto.getUserID());

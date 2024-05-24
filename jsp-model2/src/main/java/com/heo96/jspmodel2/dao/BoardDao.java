@@ -43,16 +43,39 @@ public class BoardDao extends JDBCConnectionPool {
             if(rs.next()){
                 boardContentViewDto= BoardDto.builder()
                         .no(rs.getInt("no"))
+                        .userID(rs.getString("userid"))
                         .userName(rs.getString("username"))
                         .subject(rs.getString("subject"))
                         .content(rs.getString("content"))
                         .regdate(rs.getString("regdate"))
+                        .password(rs.getString("password"))
                         .hit(rs.getInt("hit"))
                         .build();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally{
+            close();
         }
         return boardContentViewDto;
+    }
+    public int boardContentWrite(BoardDto boardDto){
+        int result=0;
+        String sql = "insert into board values(board_seq.nextval,?,?,?,?,?,sysdate,?)";
+        try {
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,boardDto.getPassword());
+            pstmt.setString(2,boardDto.getUserID());
+            pstmt.setString(3,boardDto.getUserName());
+            pstmt.setString(4,boardDto.getSubject());
+            pstmt.setString(5,boardDto.getContent());
+            pstmt.setInt(6,0);
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            close();
+        }
+        return result;
     }
 }

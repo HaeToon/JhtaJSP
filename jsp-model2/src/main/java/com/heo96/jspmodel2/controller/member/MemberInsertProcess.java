@@ -53,16 +53,20 @@ public class MemberInsertProcess extends HttpServlet {
 
 //      이미지 업로드
         Part profile = request.getPart("profile");
-        String originalProfile=""; //파일명.jpg
+//        String originalProfile=""; //파일명.jpg
         String renameProfile=""; // 파일명_20240523-151234.jpg
         String renameFile="";
 
-        String partHeader = profile.getHeader("content-disposition"); //여기서 filename 추출해야함.
-        String partArray[] = partHeader.split("filename=");//partArray배열에 넣기
-        String originalFileName = partArray[1].trim().replace("\"","");
+//        String partHeader = profile.getHeader("content-disposition"); //여기서 filename 추출해야함.
+//        String partArray[] = partHeader.split("filename=");//partArray배열에 넣기
+//        String originalFileName = partArray[1].trim().replace("\"","");
+
+        String fileName = profile.getSubmittedFileName(); // 프론트에서 넘어온 파일이름
+//        System.out.println("filename"+fileName);
 
 //      폴더경로 localhost:8080/upload/
-        String serverUploadDir = this.getServletContext().getRealPath("upload"); //form의
+        //serverUploadDir = form에서 업로드된 파일이 서버로 업로드되는 경로
+        String serverUploadDir = this.getServletContext().getRealPath("upload");
         System.out.println("serverUploadDir ===" +serverUploadDir);
 
         File dir = new File(serverUploadDir);
@@ -70,20 +74,22 @@ public class MemberInsertProcess extends HttpServlet {
             dir.mkdir();
         }
 
-        if(!originalFileName.isEmpty()){
-            profile.write(serverUploadDir+ File.separator + originalFileName);
-            String fileName = originalFileName.substring(0,originalFileName.lastIndexOf("."));
-            String extention = originalFileName.substring(originalFileName.lastIndexOf("."));
+        if(!fileName.isEmpty()){ //파일이 넘어온것. 특정 경로에 옮겨두기
+            profile.write(serverUploadDir+ File.separator + fileName); //원본파일
+            String first = fileName.substring(0,fileName.lastIndexOf("."));   //파일명
+            String extention = fileName.substring(fileName.lastIndexOf(".")); //확장자명
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("_YYYYMMdd_hhmmss");
             String formatNow = now.format(dateTimeFormatter);
-            renameFile = fileName+formatNow+extention; //파일명변경
+            renameFile = first+formatNow+extention;
+            //파일명변경 first=404 formatnow=20240524_092933 extention =.jpg
+            System.out.println(renameFile);
 
-            originalProfile=serverUploadDir+File.separator+originalFileName;
-            //localhost:8080/upload/originalFileName
-            renameProfile=serverUploadDir+File.separator+renameFile;
-            //localhost:8080/upload/renameFile
-            File oldFile = new File(originalProfile);
+            fileName=serverUploadDir+File.separator+fileName; //localhost:8080/upload/originalFileName
+
+            renameProfile=serverUploadDir+File.separator+renameFile; //localhost:8080/upload/renameFile
+
+            File oldFile = new File(fileName);
             File newFile = new File(renameProfile);
             oldFile.renameTo(newFile); // 덮어쓰기
         }
@@ -105,8 +111,8 @@ public class MemberInsertProcess extends HttpServlet {
                 .adress(request.getParameter("adress"))
                 .detailAdress(request.getParameter("detailAdress"))
                 .grade("member")
-                .originalProfile(originalProfile)
-                .renameProfile(renameFile)
+                .originalProfile(fileName) //원본파일
+                .renameProfile(renameFile) //원본파일+난수
                 .build();
 
         MemberDao memberDao = new MemberDao();

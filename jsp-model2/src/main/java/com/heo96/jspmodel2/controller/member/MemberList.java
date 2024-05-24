@@ -15,7 +15,7 @@ import java.util.List;
 @WebServlet("/member/list")
 public class MemberList extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        super.doGet(req, resp);
         //list 싣고보내기
         MemberDao memberDao = new MemberDao();

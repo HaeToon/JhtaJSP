@@ -20,10 +20,9 @@ import java.util.List;
 public class BoardContentList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        super.doGet(req, resp);
         BoardDao boardDao = new BoardDao();
-        List<BoardDto>contentListDto = boardDao.boardContentList();
-        request.setAttribute("contentListDto",contentListDto);
+        List<BoardDto>boardcontentListDto = boardDao.boardContentList();
+        request.setAttribute("contentListDto",boardcontentListDto);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/board/content-list-model2.jsp");
         dispatcher.forward(request,response);
     }

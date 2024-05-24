@@ -21,7 +21,7 @@
             <tr>
                 <th>No</th>
                 <th>Subject</th>
-                <th>viewSubject</th>
+<%--                <th>viewSubject</th>--%>
                 <th>Name</th>
                 <th>Hit</th>
                 <th>Date</th>
@@ -32,7 +32,7 @@
                 <tr>
                     <td>${boardList.no}</td>
                     <td><a href="/board/content-view?no=${boardList.no}">${boardList.subject}</a></td>
-                    <td><a href="">${boardList.subject}view</a></td>
+<%--                    <td><a href="">${boardList.subject}view</a></td>--%>
                     <td>${boardList.userName}</td>
                     <td>${boardList.hit}</td>
                     <td>${boardList.regdate}</td>
@@ -64,6 +64,10 @@
             <li class="page-item"><a class="page-link" href="#">Next</a></li>
         </ul>
     </nav>
-    <div class="mt-5 mb-5"><a href="../board/write.jsp" class="btn btn-primary">글쓰기</a></div>
+    <c:choose>
+        <c:when test="${sessionMemberDto.userID!=null}">
+    <div class="mt-5 mb-5"><a href="../board/content-write" class="btn btn-primary">글쓰기</a></div>
+        </c:when>
+    </c:choose>
 </div>
 <%@include file="../include/footer.jsp"%>

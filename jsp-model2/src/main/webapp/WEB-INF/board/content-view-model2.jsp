@@ -35,5 +35,19 @@
         </tr>
         </tbody>
     </table>
+    <div class="mt-5 mb-5">
+        <a href="../board/content-list" class="btn btn-primary">목록으로</a>
+<%--        <c:choose>--%>
+<%--            <c:when test="${boardContentViewDto.userID==}" >--%>
+<%--        <a href="../board/content-list" class="btn btn-primary">수정하기</a>--%>
+<%--            </c:when>--%>
+<%--        </c:choose>--%>
+    </div>
 </div>
+<script src="http://cdn.iframe.ly/embed.js?api_key=bf21616ae40681a089d9c7"></script>
+<script>
+    document.querySelectorAll("oembed[url]").forEach(element =>{
+        iframely.load(element,element.attributes.url.value)
+    })
+</script>
 <%@include file="../include/footer.jsp"%>
