@@ -1,4 +1,4 @@
-package com.heo96.jspmodel2.dto;
+package com.heo96.jspmodel2replyboard.dto;
 
 
 import lombok.*;
