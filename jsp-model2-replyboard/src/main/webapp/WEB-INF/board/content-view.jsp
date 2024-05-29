@@ -49,8 +49,32 @@
         <a href="../board/content-reply" class="btn btn-primary">댓글달기</a>
         <a href="/board/reply?regroup=${content.regroup}&relevel=${content.relevel}&restep=${content.restep}" class="btn btn-primary">댓글달기2</a>
         <a href="/board/delete?no=${content.no}" class="btn btn-danger">삭제하기</a>
+    </div>
+    <div class="mt-5 mb-5">
+    <div class="row">
+        <span class="col-2">이전글</span>
+        <c:choose>
+            <c:when test="${empty prev.subject}">
+                <a href="/board/content-list" class="col-10">이전글이 없습니다. 목록으로</a>
+            </c:when>
+            <c:otherwise>
+                <a href="/board/content-view?no=${prev.no}&num=${prev.num}" class="col-10">${prev.subject}</a>
+            </c:otherwise>
+        </c:choose>
 
+    </div>
+        <div class="row">
+            <span class="col-2">다음글</span>
+            <c:choose>
+                <c:when test="${empty next.subject}">
+                    <a href="/board/content-list" class="col-10">다음글이 없습니다. 목록으로</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="/board/content-view?no=${next.no}&num=${next.num}" class="col-10">${next.subject}</a>
+                </c:otherwise>
+            </c:choose>
 
+        </div>
     </div>
 </div>
 <%@include file="../include/footer.jsp"%>
