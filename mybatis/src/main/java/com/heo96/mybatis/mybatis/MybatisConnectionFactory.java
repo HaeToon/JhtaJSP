@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MybartisConnectionFactory {
+public class MybatisConnectionFactory {
     //싱글턴 패턴 = 한개 만들어서 돌려막기
     private static SqlSessionFactory sqlSessionFactory;
 

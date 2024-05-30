@@ -8,8 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../include/header.jsp" %>
 <div class="container">
-    <h2 class="mt-5 mb-5">LIST</h2>
-        <form action="/board/content-list">
+        <form action="/board/search">
             <div class="row g-3 align-items-center text-end">
                 <div class="col-auto">
                     <select class="form-select" aria-label="Default select example" name="search">
@@ -20,7 +19,7 @@
                     </select>
                 </div>
                 <div  class="col-auto">
-                <input type="text" name="searchWord" class="form-control">
+                <input type="text" name="searchWord" class  ="form-control">
                 </div>
                 <div  class="col-auto">
                     <button class="btn btn-outline-primary">검색</button>

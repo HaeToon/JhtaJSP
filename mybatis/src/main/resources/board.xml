@@ -8,6 +8,59 @@
     <select id="getBoard" resultType="com.heo96.mybatis.dto.BoardDto" parameterType="int">
 <!--        parameterType="int" 로 인해 #{no}는 반드시 int로 들어가야함.-->
 <!--        select * from board where no = ?-->
-        select * from board where no= #{no}
+        select * from (SELECT rownum AS num, b01.* from (SELECT * FROM board ORDER BY regroup DESC, relevel asc) b01)where num=#{num}
     </select>
+    <select id="getBoardList" resultType="com.heo96.mybatis.dto.BoardDto" parameterType="com.heo96.mybatis.dto.PageDto">
+        SELECT * FROM
+        (SELECT rownum AS num, b01.* from
+        (SELECT * FROM board ORDER BY regroup DESC, relevel asc) b01
+        ) WHERE NUM BETWEEN #{start} AND #{end}
+    </select>
+    <!--    <select id="getBoardList" resultType="com.heo96.mybatis.dto.BoardDto" parameterType="int">-->
+    <!--        SELECT * FROM (SELECT ROWNUM AS NUM,B01.* FROM (SELECT * FROM BOARD WHERE AVAILABLE=1 ORDER BY REGROUP DESC,RELEVEL ASC)B01)WHERE NUM <![CDATA[>=]] >1 AND NUM <![CDATA[<=]] 10 ORDER BY NUM DESC-->
+    <!--    </select>-->
+    <!--     <select id="getBoardList" resultType="com.heo96.mybatis.dto.BoardDto" parameterType="int">>-->
+    <!--        SELECT * FROM (SELECT ROWNUM AS NUM,B01.* FROM (SELECT * FROM BOARD WHERE AVAILABLE=1 ORDER BY REGROUP DESC,RELEVEL ASC)B01)WHERE NUM <![CDATA[>=]] >1 AND NUM <![CDATA[<=]] 10 ORDER BY NUM DESC-->
+    <!--    </select>-->
+    <select id="getBoardTotal" resultType="int">
+        select count(*) as total from board
+    </select>
+    <delete id="deleteBoard" parameterType="com.heo96.mybatis.dto.BoardDto">
+        delete from board where no = #{no} and password=#{password}
+    </delete>
+    <select id="searchBoard" resultType="com.heo96.mybatis.dto.BoardDto" parameterType="com.heo96.mybatis.dto.SearchDto" >
+        select * from board where
+        <choose>
+            <when test="search == 'subject'">
+                subject like '%'||#{searchWord}||'%'
+            </when>
+            <when test="search == 'content'">
+                content like '%'||#{searchWord}||'%'
+            </when>
+            <when test="search == 'all'">
+                subject like '%'||#{searchWord}||'%' or  content like '%'||#{searchWord}||'%'
+            </when>
+            <when test="search == 'username'">
+                username like '%'||#{searchWord}||'%'
+            </when>
+        </choose>
+    </select>
+    <insert id="writeBoard" parameterType="com.heo96.mybatis.dto.BoardDto">
+        insert into board values(board_seq.nextval,#{password},#{userID},#{userName},#{subject},#{content},#{regroup},1,1,sysdate,0,1)
+    </insert>
+    <select id="getMaxRegroup" resultType="int">
+        select nvl(max(regroup),0) as max from board
+    </select>
+    <insert id="writeBoardReply" parameterType="BoardDto">
+        insert into board values(board_seq.nextval,#{password},#{userID},#{userName},#{subject},#{content},#{regroup},#{relevel},#{restep},sysdate,0,1)
+    </insert>
+    <update id="updateRelevel" parameterType="BoardDto">
+        update board set relevel = relevel+1 where regroup = #{regroup} and relevel > #{relevel}
+    </update>
+    <delete id="deleteAllBoard" >
+        delete board where no IN
+        <foreach collection="array" item="item" index="i" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

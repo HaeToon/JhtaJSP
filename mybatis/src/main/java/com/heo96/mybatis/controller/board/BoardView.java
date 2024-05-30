@@ -15,8 +15,9 @@ import java.io.IOException;
 public class BoardView extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int num = Integer.parseInt(request.getParameter("num"));
         BoardDao boardDao = new BoardDao();
-        BoardDto boardDto = boardDao.getBoard();
+        BoardDto boardDto = boardDao.getBoard(num);
         request.setAttribute("boardDto",boardDto);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/board/view.jsp");
