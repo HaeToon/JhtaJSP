@@ -5,8 +5,8 @@
     <h2 class="mt-5 mb-5">글쓰기</h2>
     <form action="../board/write" method="post" >
         <%--        ${sessionMemberDto.userID}--%>
-<%--        <input type="hidden" name="userID" value="${sessionMemberDto.userID}">--%>
-        <input type="hidden" name="userID" value="heoth01">
+        <input type="hidden" name="userID" value="${sessionMemberDto.userID}">
+<%--        <input type="hidden" name="userID" value="heoth01">--%>
         <div class="mb-3">
             <label for="userName" class="form-label">USER NAME</label>
             <input type="text" class="form-control" id="userName" placeholder="user name" name="userName">

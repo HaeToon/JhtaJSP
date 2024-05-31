@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heo96.mybatis">
+<!--  #은 ""이 붙고 $는 그대로 들어옴  -->
+   <insert id="memberSignUp" parameterType="MemberDto" >
+       INSERT INTO MEMBER VALUES(member_seq.nextval,#{userID},#{userPW},#{userName},#{userBirth},#{userEmail},#{postcode},#{adress},#{detailAdress},#{grade},sysdate,#{originalProfile},#{renameProfile})
+   </insert>
+    <select id="memberIDCheck" parameterType="String" resultType="int">
+<!--    SELECT COUNT(*) AS COUNT FROM MEMBER WHERE USERID=#{아무거나써도 됨. 기본타입}    -->
+        SELECT COUNT(*) AS COUNT FROM MEMBER WHERE USERID=#{userID}
+    </select>
+    <select id="memberSighIn" parameterType="String" resultType="MemberDto">
+        SELECT * FROM MEMBER WHERE USERID=#{userID}
+    </select>
+    <select id="memberInfo" parameterType="String" resultType="MemberDto">
+        SELECT * FROM MEMBER WHERE USERID=#{userID}
+    </select>
+    <update id="memberInfoEdit" parameterType="MemberDto">
+        update member set userpw=#{userPW},username=#{userName},userBirth=#{userBirth},Email=#{userEmail},postcode=#{postcode},adress=#{adress},detailadress=#{detailAdress} where userid=#{userID}
+    </update>
+</mapper>

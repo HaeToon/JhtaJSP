@@ -46,6 +46,13 @@ public class BoardDao {
         sqlSession.close();
         return boardTotal;
     }
+    public int getSearchTotal(SearchDto searchDto){
+        int boardTotal=0;
+        SqlSession sqlSession=MybatisConnectionFactory.getSqlSession();
+        boardTotal=sqlSession.selectOne("getSearchTotal",searchDto);
+        sqlSession.close();
+        return boardTotal;
+    }
     public int deleteBoard(BoardDto boardDto){
         int result=0;
         SqlSession sqlSession=MybatisConnectionFactory.getSqlSession();
@@ -91,8 +98,13 @@ public class BoardDao {
     }
     public int deleteAllBoard (int[] noArray){
         int result = 0;
-        SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
+        SqlSession sqlSession = MybatisConnectionFactory.getSqlSession(false);
         result=sqlSession.update("deleteAllBoard",noArray);
+        if(noArray.length==result){
+            sqlSession.commit();
+        }else {
+            sqlSession.rollback();
+        }
         sqlSession.close();
         return result;
     }

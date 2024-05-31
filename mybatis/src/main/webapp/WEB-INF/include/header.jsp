@@ -26,20 +26,20 @@
                 <li><a href="/index/index" class="nav-link px-2 link-secondary">Home</a></li>
                 <li><a href="/member/list" class="nav-link px-2 link-secondary">List</a></li>
                 <li><a href="/board/list?page=1" class="nav-link px-2">Board</a></li>
-                <li><a href="" class="nav-link px-2">Board lombok</a></li>
                 <li><a href="" class="nav-link px-2">FAQs</a></li>
             </ul>
             <c:choose>
                 <c:when test="${sessionMemberDto!=null}">
             <div class="col-md-3 text-end">
+                <img src="${request.contextPath}/upload/${sessionMemberDto.renameProfile}" class="profile">
                 <a href="../member/info?userID=${sessionMemberDto.userID}" class="btn btn-outline-primary me-2">${sessionMemberDto.userName}</a>
                 <a href="/member/logout" class="btn btn-primary">로그아웃</a>
             </div>
                 </c:when>
                 <c:otherwise>
             <div class="col-md-3 text-end">
-                <a href="/member/login-member" class="btn btn-outline-primary me-2">로그인</a>
-                <a href="/member/insert" class="btn btn-primary">회원가입</a>
+                <a href="/member/member-sign-in" class="btn btn-outline-primary me-2">로그인</a>
+                <a href="/member/member-sign-up" class="btn btn-primary">회원가입</a>
             </div>
                 </c:otherwise>
             </c:choose>

@@ -11,4 +11,6 @@ import lombok.*;
 public class SearchDto {
     private String search;
     private String searchWord;
+    private int start;
+    private int end;
 }

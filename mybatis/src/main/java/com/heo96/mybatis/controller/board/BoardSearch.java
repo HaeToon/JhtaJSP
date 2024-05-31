@@ -19,16 +19,26 @@ public class BoardSearch extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String search = request.getParameter("search");
         String searchWord=request.getParameter("searchWord");
+        int start = 1;
+        int listPerPage=10;
+        int end =start*listPerPage;
 //        System.out.println(search);
 //        System.out.println(searchWord);
         SearchDto searchDto = SearchDto.builder()
                 .search(search)
                 .searchWord(searchWord)
+                .start(start)
+                .end(end)
                 .build();
         BoardDao boardDao = new BoardDao();
         List<BoardDto>searchBoardList =  boardDao.searchBoard(searchDto);
-        System.out.println(searchBoardList.size());
+
+        BoardDao boardTotalDao = new BoardDao();
+        int total = boardTotalDao.getSearchTotal(searchDto);
         request.setAttribute("searchBoardList",searchBoardList);
+        request.setAttribute("search",search);
+        request.setAttribute("searchWord",searchWord);
+        request.setAttribute("total",total);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/board/search-list.jsp");
         dispatcher.forward(request,response);

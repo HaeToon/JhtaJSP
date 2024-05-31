@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jhta
-  Date: 2024-05-30
-  Time: 오전 9:20
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../include/header.jsp" %>
 <div class="container">
@@ -24,7 +18,7 @@
             </div>
             <div class="col-auto">
                 <button class="btn btn-outline-primary">검색</button>
-                <a href="/board/content-list" class="btn btn-outline-primary">목록</a>
+                <a href="../board/list" class="btn btn-outline-primary">목록</a>
             </div>
 
         </div>
@@ -73,10 +67,14 @@
             </c:forEach>
             </tbody>
         </table>
-        <div class="mt-5 mb-5 ">
-            <a href="/board/write" class="btn btn-outline-primary">글쓰기</a>
-            <button class="btn btn-danger" id="deleteAll">삭제하기</button>
-        </div>
+        <c:choose>
+            <c:when test="${loggedID ne null}">
+                <div class="mt-5 mb-5 ">
+                    <a href="/board/write" class="btn btn-outline-primary">글쓰기</a>
+                    <button class="btn btn-danger" id="deleteAll">삭제하기</button>
+                </div>
+            </c:when>
+        </c:choose>
     </form>
 </div>
 <%@include file="../include/footer.jsp" %>

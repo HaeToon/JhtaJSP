@@ -3,11 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heo96.mybatis">
+<!--  <include refid="search"></include>  이걸로 반복되는부분을 모아서 불러오기가능-->
+    <sql id="search" >
+        <choose>
+            <when test="search == 'subject'">
+                subject like '%'||#{searchWord}||'%'
+            </when>
+            <when test="search == 'content'">
+                content like '%'||#{searchWord}||'%'
+            </when>
+            <when test="search == 'all'">
+                subject like '%'||#{searchWord}||'%' or  content like '%'||#{searchWord}||'%'
+            </when>
+            <when test="search == 'username'">
+                username like '%'||#{searchWord}||'%'
+            </when>
+        </choose>
+    </sql>
+
 <!--  select에는 반드시 resultType가 있어야함 id= 메서드명이라고 보면됨  -->
 <!--    resultType="BoardDto" 이렇게 쓰려면 config.xml에서 alias설정해야함.-->
     <select id="getBoard" resultType="com.heo96.mybatis.dto.BoardDto" parameterType="int">
 <!--        parameterType="int" 로 인해 #{no}는 반드시 int로 들어가야함.-->
-<!--        select * from board where no = ?-->
+<!--        select * from board where no = ? >> select * from board where no = #{no}-->
         select * from (SELECT rownum AS num, b01.* from (SELECT * FROM board ORDER BY regroup DESC, relevel asc) b01)where num=#{num}
     </select>
     <select id="getBoardList" resultType="com.heo96.mybatis.dto.BoardDto" parameterType="com.heo96.mybatis.dto.PageDto">
@@ -25,25 +43,18 @@
     <select id="getBoardTotal" resultType="int">
         select count(*) as total from board
     </select>
+    <select id="getSearchTotal" resultType="int" parameterType="SearchDto">
+        SELECT count(*) as total FROM (SELECT rownum AS num , searchBoard.* FROM (select * from board where available=1 and
+        <include refid="search"></include>
+        ORDER BY NO desc) searchBoard)
+    </select>
     <delete id="deleteBoard" parameterType="com.heo96.mybatis.dto.BoardDto">
         delete from board where no = #{no} and password=#{password}
     </delete>
     <select id="searchBoard" resultType="com.heo96.mybatis.dto.BoardDto" parameterType="com.heo96.mybatis.dto.SearchDto" >
-        select * from board where
-        <choose>
-            <when test="search == 'subject'">
-                subject like '%'||#{searchWord}||'%'
-            </when>
-            <when test="search == 'content'">
-                content like '%'||#{searchWord}||'%'
-            </when>
-            <when test="search == 'all'">
-                subject like '%'||#{searchWord}||'%' or  content like '%'||#{searchWord}||'%'
-            </when>
-            <when test="search == 'username'">
-                username like '%'||#{searchWord}||'%'
-            </when>
-        </choose>
+        SELECT * FROM (SELECT rownum AS num , searchBoard.* FROM (select * from board where available=1 and
+        <include refid="search"></include>
+        ORDER BY NO desc) searchBoard) WHERE NUM BETWEEN #{start} AND #{end}
     </select>
     <insert id="writeBoard" parameterType="com.heo96.mybatis.dto.BoardDto">
         insert into board values(board_seq.nextval,#{password},#{userID},#{userName},#{subject},#{content},#{regroup},1,1,sysdate,0,1)

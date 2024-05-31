@@ -24,6 +24,9 @@ public class MybatisConnectionFactory {
         }
     }
     public static SqlSession getSqlSession(){
-        return sqlSessionFactory.openSession(true);
+        return sqlSessionFactory.openSession(true); // default = false
+    }
+    public static SqlSession getSqlSession(boolean isCommit){
+        return sqlSessionFactory.openSession(isCommit); // default = false
     }
 }

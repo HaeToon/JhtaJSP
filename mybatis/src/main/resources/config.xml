@@ -8,6 +8,7 @@
      <typeAlias alias="BoardDto" type="com.heo96.mybatis.dto.BoardDto"/>
      <typeAlias alias="PageDto" type="com.heo96.mybatis.dto.PageDto"/>
      <typeAlias alias="SearchDto" type="com.heo96.mybatis.dto.SearchDto"/>
+     <typeAlias alias="MemberDto" type="com.heo96.mybatis.dto.MemberDto"/>
  </typeAliases>
     <!--  db.properties 연결?..  -->
     <environments default="development">
@@ -23,5 +24,6 @@
     </environments>
     <mappers>
         <mapper resource="board.xml"/>
+        <mapper resource="member.xml"/>
     </mappers>
 </configuration>
