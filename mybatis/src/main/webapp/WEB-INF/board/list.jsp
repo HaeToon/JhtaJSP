@@ -37,7 +37,9 @@
                 <th>Relevel</th>
                 <th>Restep</th>
                 <th>Available</th>
+                <c:if test="${grade.lable eq 'admin'}">
                 <th>전체삭제<input type="checkbox" id="check-all" value="yes"></th>
+                </c:if>
             </tr>
             </thead>
             <tbody>
@@ -62,19 +64,31 @@
                     <td>${boardDto.relevel}</td>
                     <td>${boardDto.restep}</td>
                     <td>${boardDto.available}</td>
-                    <td>삭제하기<input type="checkbox" class="check" name="check" value="${boardDto.no}"></td>
+                    <c:if test="${grade.lable eq 'admin'}">
+                        <td>삭제하기<input type="checkbox" class="check" name="check" value="${boardDto.no}"></td>
+                    </c:if>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <c:choose>
-            <c:when test="${loggedID ne null}">
+            <c:when test="${loggedID ne null && grade.lable eq 'admin'}">
+                <h2>${grade}</h2>
+                <h2>${grade.lable}</h2>
                 <div class="mt-5 mb-5 ">
                     <a href="/board/write" class="btn btn-outline-primary">글쓰기</a>
                     <button class="btn btn-danger" id="deleteAll">삭제하기</button>
                 </div>
             </c:when>
+            <c:when test="${loggedID ne null && grade.lable ne 'admin'}">
+                <h2>${grade}</h2>
+                <h2>${grade.lable}</h2>
+                <div class="mt-5 mb-5 ">
+                    <a href="/board/write" class="btn btn-outline-primary">글쓰기</a>
+                </div>
+            </c:when>
         </c:choose>
+
     </form>
 </div>
 <%@include file="../include/footer.jsp" %>

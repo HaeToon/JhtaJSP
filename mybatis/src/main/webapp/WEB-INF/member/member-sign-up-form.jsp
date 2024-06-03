@@ -30,8 +30,7 @@
             </div>
             <div class="mb-3">
                 <label for="userEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="userEmail" placeholder="Example@example.com"
-                       name="userEmail">
+                <input type="email" class="form-control" id="userEmail" placeholder="Example@example.com" name="userEmail">
             </div>
             <div>
                 <label for="postCode" class="form-label">Post Code</label>

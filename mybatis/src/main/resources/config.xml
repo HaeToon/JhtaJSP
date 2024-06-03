@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<!--  순서 프로퍼티 > 알리아스 > 핸들러  -->
     <properties resource="db.properties"></properties>
  <typeAliases>
      <typeAlias alias="BoardDto" type="com.heo96.mybatis.dto.BoardDto"/>
@@ -10,6 +11,10 @@
      <typeAlias alias="SearchDto" type="com.heo96.mybatis.dto.SearchDto"/>
      <typeAlias alias="MemberDto" type="com.heo96.mybatis.dto.MemberDto"/>
  </typeAliases>
+<!--  자바 타입이랑 db타입 맞춰줘야 할때 typeHandler씀  -->
+    <typeHandlers>
+        <typeHandler handler="com.heo96.mybatis.mybatis.GradeTypeHandler"></typeHandler>
+    </typeHandlers>
     <!--  db.properties 연결?..  -->
     <environments default="development">
         <environment id="development">

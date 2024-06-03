@@ -31,7 +31,14 @@
             <c:choose>
                 <c:when test="${sessionMemberDto!=null}">
             <div class="col-md-3 text-end">
+                <c:choose>
+                    <c:when test="${sessionMemberDto.renameProfile ne null }">
                 <img src="${request.contextPath}/upload/${sessionMemberDto.renameProfile}" class="profile">
+                    </c:when>
+                    <c:when test="${sessionMemberDto.renameProfile eq null}">
+                        <img src="../../images/nonProfile.png" class="profile">
+                    </c:when>
+                </c:choose>
                 <a href="../member/info?userID=${sessionMemberDto.userID}" class="btn btn-outline-primary me-2">${sessionMemberDto.userName}</a>
                 <a href="/member/logout" class="btn btn-primary">로그아웃</a>
             </div>

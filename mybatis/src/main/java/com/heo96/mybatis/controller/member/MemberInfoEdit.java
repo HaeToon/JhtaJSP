@@ -23,6 +23,8 @@ public class MemberInfoEdit extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int result =0;
+        String originalProfile = "";
+        String renameProfile="";
         MemberDto memberDto = MemberDto.builder()
                 .userID(request.getParameter("userID"))
                 .userPW(request.getParameter("userPW"))
@@ -32,6 +34,7 @@ public class MemberInfoEdit extends HttpServlet {
                 .postcode(request.getParameter("postcode"))
                 .adress(request.getParameter("adress"))
                 .detailAdress(request.getParameter("detailAdress"))
+
                 .build();
         MemberDao memberDao=new MemberDao();
         result = memberDao.memberInfoEdit(memberDto);

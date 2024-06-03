@@ -1,6 +1,7 @@
 package com.heo96.mybatis.controller.member;
 
 import com.heo96.mybatis.dao.MemberDao;
+import com.heo96.mybatis.dto.Grade;
 import com.heo96.mybatis.dto.MemberDto;
 import com.heo96.mybatis.utils.ScriptWritter;
 import jakarta.servlet.RequestDispatcher;
@@ -77,7 +78,7 @@ public class MemberSignUp extends HttpServlet {
                 .postcode(request.getParameter("postcode"))
                 .adress(request.getParameter("adress"))
                 .detailAdress(request.getParameter("detailAdress"))
-                .grade("member")
+                .grade(Grade.MEMBER) // role ,grade
                 .originalProfile(originalProfile)
                 .renameProfile(renameProfile)
                 .build();

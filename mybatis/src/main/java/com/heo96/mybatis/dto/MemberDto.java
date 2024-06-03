@@ -18,7 +18,7 @@ public class MemberDto {
     private String postcode;
     private String adress;
     private String detailAdress;
-    private String grade;
+    private Grade grade;
     private String regdate;
     private String originalProfile;
     private String renameProfile;
