@@ -5,10 +5,10 @@
          version="5.0">
     <context-param>
         <param-name>NaverID</param-name>
-        <param-value>gxg9610</param-value>
+        <param-value>naverid</param-value>
     </context-param>
     <context-param>
         <param-name>NaverPW</param-name>
-        <param-value>chvPdls321</param-value>
+        <param-value>naverpw</param-value>
     </context-param>
 </web-app>
